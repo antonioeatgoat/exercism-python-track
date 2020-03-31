@@ -2,6 +2,11 @@ from bowling_score import BowlingScore
 
 
 class BowlingGame:
+    """The Bowling Game class
+
+    Once initialized, the class setup a new game. It updates its internal status every time a new ball roll is made,
+    so basically every method inside the class works considering the current game status.
+    """
 
     _frames_score = {}
 
@@ -15,6 +20,7 @@ class BowlingGame:
         self._setup_next_frame()
 
     def roll(self, pins):
+        """Performs a new throw"""
         if self._is_game_finished():
             raise ValueError('The game is finished, you cannot roll anymore.')
 
@@ -37,10 +43,12 @@ class BowlingGame:
             self._setup_next_frame()
 
     def score(self):
+        """Returns the total scores of the game. This method can work only if called at the very end of the game"""
         bowling_score = BowlingScore(self._frames_score)
         return bowling_score.total_score()
 
     def _handle_single_roll(self, pins):
+        """Updates counters related to a generic single ball throw"""
         self._remaining_rolls -= 1
         self._remaining_spins -= pins
         self._frames_score[self._current_frame()].append(pins)
@@ -48,12 +56,14 @@ class BowlingGame:
             self._remaining_bonus -= 1
 
     def _handle_strike(self):
+        """Updates counters specific of a strike throw"""
         if self._is_second_last_frame():
             self._remaining_bonus = 1
         if self._is_last_frame():
             self._remaining_bonus = 2
 
     def _handle_spare(self):
+        """Updates counters specific of a spare throw"""
         if self._is_last_frame():
             self._remaining_bonus = 1
 
