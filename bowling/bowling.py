@@ -1,3 +1,6 @@
+from bowling_score import BowlingScore
+
+
 class BowlingGame:
 
     _frames_score = {}
@@ -34,24 +37,8 @@ class BowlingGame:
             self._setup_next_frame()
 
     def score(self):
-        # todo define a ScoreCalculator to extract this logic
-        score = 0
-        for frame, throw in self._frames_score.items():
-            if frame > 9:
-                break
-
-            throw_sum = sum(throw)
-            score += throw_sum
-            if throw_sum == 10:
-                score += self._frames_score[frame+1][0]
-
-                if len(throw) == 1:
-                    if len(self._frames_score[frame + 1]) == 2:
-                        score += self._frames_score[frame + 1][1]
-                    else:
-                        score += self._frames_score[frame + 2][0]
-
-        return score
+        bowling_score = BowlingScore(self._frames_score)
+        return bowling_score.total_score()
 
     def _handle_single_roll(self, pins):
         self._remaining_rolls -= 1
