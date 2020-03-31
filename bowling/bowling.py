@@ -9,9 +9,7 @@ class BowlingGame:
     """
 
     _frames_score = {}
-
-    _remaining_frames = 10
-    _bonus_throws = 0
+    _remaining_frames = 11 # One more, so that it becomes 10 on init
 
     def __init__(self):
         self._setup_next_frame()
@@ -30,7 +28,6 @@ class BowlingGame:
         self._handle_single_roll(pins)
 
         if self._is_frame_finished():
-            self._update_frame_count()
             self._setup_next_frame()
 
     def score(self):
@@ -43,18 +40,16 @@ class BowlingGame:
         self._remaining_spins -= pins
         self._frames_score[self._current_frame()].append(pins)
 
-    def _update_frame_count(self):
-        self._remaining_frames -= 1
-
     def _setup_next_frame(self):
+        self._remaining_frames -= 1
         self._frames_score[self._current_frame()] = []
         self._remaining_spins = 10
 
-    def _is_strike(self):
-        return self._get_remaining_rolls() == 1 and self._remaining_spins == 0
-
     def _is_frame_finished(self):
         return self._get_remaining_rolls() == 0 or self._is_strike()
+
+    def _is_strike(self):
+        return self._get_remaining_rolls() == 1 and self._remaining_spins == 0
 
     def _is_game_finished(self):
         return self._remaining_frames == 0 \
@@ -66,9 +61,3 @@ class BowlingGame:
 
     def _current_frame(self):
         return 10 - self._remaining_frames
-
-    def _is_last_frame(self):
-        return self._remaining_frames == 1
-
-    def _is_second_last_frame(self):
-        return self._remaining_frames == 2
