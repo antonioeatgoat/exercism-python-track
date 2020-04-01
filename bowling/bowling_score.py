@@ -7,6 +7,7 @@ class BowlingScore:
 
     def total_score(self) -> int:
         """Calculates the total score of the game"""
+
         score = 0
         for current_frame, frame_throws in self._frames_scores.items():
             if current_frame > 9:
@@ -24,18 +25,22 @@ class BowlingScore:
 
     def _is_spare(self, frame_index: int) -> bool:
         """Checks if the given frame was a spare or not"""
+
         return sum(self._frames_scores[frame_index]) == 10 and not self._is_strike(frame_index)
 
     def _is_strike(self, frame_index: int) -> bool:
         """Checks if the given frame was a strike or not"""
+
         return len(self._frames_scores[frame_index]) == 1
 
     def _get_spare_additional_score(self, frame_index: int) -> int:
         """Gets the additional spare points of a given frame"""
+
         return self._frames_scores[frame_index + 1][0]
 
     def _get_strike_additional_score(self, frame_index: int) -> int:
         """Gets the additional strike points of a given frame"""
+
         next_score = self._frames_scores[frame_index + 1][0]
         if not self._is_strike(frame_index + 1):
             next_2_score = self._frames_scores[frame_index + 1][1]

@@ -16,6 +16,7 @@ class BowlingGame:
 
     def roll(self, pins):
         """Performs a new throw"""
+
         if self._is_game_finished():
             raise ValueError('The game is finished, you cannot roll anymore.')
 
@@ -32,11 +33,13 @@ class BowlingGame:
 
     def score(self):
         """Returns the total scores of the game. This method can work only if called at the very end of the game"""
+
         bowling_score = BowlingScore(self._frames_score)
         return bowling_score.total_score()
 
     def _handle_single_roll(self, pins):
         """Updates counters related to a generic single ball throw"""
+
         self._remaining_spins -= pins
         self._frames_score[self._current_frame()].append(pins)
 
