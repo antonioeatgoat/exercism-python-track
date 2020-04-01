@@ -37,7 +37,7 @@ class BowlingScore:
     def _get_strike_additional_score(self, frame_index: int) -> int:
         """Gets the additional strike points of a given frame"""
         next_score = self._frames_scores[frame_index + 1][0]
-        if len(self._frames_scores[frame_index + 1]) == 2:
+        if not self._is_strike(frame_index + 1):
             next_2_score = self._frames_scores[frame_index + 1][1]
         else:
             next_2_score = self._frames_scores[frame_index + 2][0]
